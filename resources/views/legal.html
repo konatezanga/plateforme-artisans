@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtisanIvoire - Plateforme pour Artisans Locaux</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #f97316, #f59e0b);
+        }
+        .artisan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .active-tab {
+            border-bottom: 3px solid #f97316;
+            color: #f97316;
+            font-weight: 600;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .mobile-menu {
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        .content-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .content-section h2 {
+            color: #f97316;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #f97316;
+            padding-bottom: 0.5rem;
+        }
+        .content-section h3 {
+            color: #374151;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.5rem;
+        }
+        .content-section ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin: 0.5rem 0 1rem;
+        }
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white font-bold">
+                            <i class="fas fa-hammer"></i>
+                        </div>
+                        <span class="ml-2 text-xl font-bold text-orange-600">Artisan<span class="text-green-600 text-xl font-bold">Ivoire</span></span>
+                    </div>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="index.html" class="text-gray-700 hover:text-orange-600 px-3 py-2 font-medium">Accueil</a>
+                        <a href="index.html#categories" class="text-gray-700 hover:text-orange-600 px-3 py-2 font-medium">Catégories</a>
+                        <a href="index.html#about" class="text-gray-700 hover:text-orange-600 px-3 py-2 font-medium">À propos</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <section class="hidden md:block bg-orange-50 border border-orange-200 rounded-lg px-4 py-2 flex items-center space-x-3">
+                        <i class="fas fa-user-tie text-orange-600 text-lg"></i>
+                        <span class="text-gray-800 text-sm font-medium">
+                            Vous êtes artisan ? 
+                            <a href="inscription.html" class="text-orange-600 font-semibold hover:underline ml-1">Inscrivez-vous ici</a>
+                            pour gérer votre activité.
+                        </span>
+                    </section>
+                    <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-orange-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu md:hidden bg-white">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50">Accueil</a>
+                    <a href="index.html#categories" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50">Catégories</a>
+                    <a href="index.html#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50">À propos</a>
+                    <div class="px-3 py-2">
+                        <div class="bg-orange-50 border border-orange-200 rounded-lg px-4 py-2 flex items-center space-x-3">
+                            <i class="fas fa-user-tie text-orange-600 text-lg"></i>
+                            <span class="text-gray-800 text-sm font-medium">
+                                Vous êtes artisan ? 
+                                <a href="inscription.html" class="text-orange-600 font-semibold hover:underline ml-1">Inscrivez-vous ici</a>
+                                pour gérer votre activité.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                <!-- Le titre sera dynamiquement mis à jour par JavaScript -->
+                <span id="page-title">Notre Mission</span>
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                <!-- Le sous-titre sera dynamiquement mis à jour par JavaScript -->
+                <span id="page-subtitle">Découvrez les valeurs qui guident notre plateforme</span>
+            </p>
+        </div>
+
+        <!-- Contenu dynamique -->
+        <div id="content-container" class="content-section">
+            <!-- Le contenu sera injecté ici par JavaScript -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mx-auto w-max">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">À propos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="legal.html?page=mission" class="text-gray-400 hover:text-white transition">Notre mission</a></li>
+                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition">Contact</a></li> 
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Pour les Artisans</h3>
+                    <ul class="space-y-2">
+                        <li><a href="inscription.html" class="text-gray-400 hover:text-white transition">Créer un profil</a></li>
+                        <li><a href="legal.html?page=avantages" class="text-gray-400 hover:text-white transition">Avantages</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Pour les Clients</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#recherche" class="text-gray-400 hover:text-white transition">Trouver un artisan</a></li>
+                        <li><a href="index.html#marche" class="text-gray-400 hover:text-white transition">Comment ça marche</a></li>
+                        <li><a href="index.html#about" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Légal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="legal.html?page=conditions" class="text-gray-400 hover:text-white transition">Conditions d'utilisation</a></li>
+                        <li><a href="legal.html?page=confidentialite" class="text-gray-400 hover:text-white transition">Politique de confidentialité</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="w-8 h-8 rounded-full gradient-bg flex items-center justify-center text-white font-bold">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <span class="ml-2 text-lg font-bold text-orange-600">Artisan<span class="text-green-600 text-xl font-bold">Ivoire</span></span>
+                </div>
+                <div class="text-gray-400 text-sm">
+                    &copy; 2025 ArtisanIvoire. Tous droits réservés.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-orange-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Contenu des différentes pages
+        const pageContents = {
+            mission: {
+                title: "Notre Mission",
+                subtitle: "Découvrez les valeurs qui guident notre plateforme",
+                content: `
+                    <h2>Valoriser l'artisanat local en Côte d'Ivoire</h2>
+                    <p>ArtisanIvoire a été créé avec une conviction forte : chaque artisan mérite d'être vu, reconnu et soutenu dans son travail. Notre mission est de redonner à l'artisanat ivoirien la place centrale qu'il mérite dans l'économie locale.</p>
+                    
+                    <h3>Nos engagements</h3>
+                    <ul>
+                        <li><strong>Faciliter l'accès aux artisans qualifiés</strong> pour les particuliers et professionnels</li>
+                        <li><strong>Démocratiser la visibilité</strong> pour tous les artisans, quel que soit leur taille ou ancienneté</li>
+                        <li><strong>Promouvoir les savoir-faire traditionnels</strong> tout en encourageant l'innovation</li>
+                        <li><strong>Créer des opportunités économiques</strong> pour les artisans de toutes les régions du pays</li>
+                        <li><strong>Préserver et moderniser</strong> les métiers de l'artisanat pour les générations futures</li>
+                    </ul>
+                    
+                    <h3>Une plateforme au service de la communauté</h3>
+                    <p>Nous croyons en une approche collaborative où artisans, clients et plateforme grandissent ensemble. Chaque interaction sur ArtisanIvoire contribue à renforcer l'écosystème artisanal ivoirien.</p>
+                    
+                    <p>Rejoignez-nous dans cette aventure pour redéfinir l'artisanat de demain, en préservant son âme tout en l'adaptant aux réalités économiques actuelles.</p>
+                `
+            },
+            avantages: {
+                title: "Avantages pour les Artisans",
+                subtitle: "Découvrez pourquoi rejoindre notre plateforme va booster votre activité",
+                content: `
+                    <h2>Pourquoi créer un compte Artisan sur ArtisanIvoire ?</h2>
+                    <p>En tant qu'artisan, vous méritez une plateforme qui met en valeur votre travail et vous apporte des clients qualifiés. Voici ce que nous vous offrons :</p>
+                    
+                    <h3>Visibilité accrue</h3>
+                    <ul>
+                        <li><strong>Profil complet</strong> avec portfolio de vos réalisations</li>
+                        <li><strong>Apparition dans les résultats de recherche</strong> lorsque des clients cherchent vos services</li>
+                        <li><strong>Géolocalisation</strong> pour être trouvé par les clients proches de vous</li>
+                    </ul>
+                    
+                    <h3>Outils professionnels</h3>
+                    <ul>
+                        <li><strong>Tableau de bord</strong> pour suivre vos statistiques (vues, contacts, etc.)</li>
+                        <li><strong>Gestion simplifiée</strong> de vos annonces et réalisations</li>
+                        <li><strong>Système d'avis</strong> pour bâtir votre réputation en ligne</li>
+                        <li><strong>Notifications</strong> en temps réel quand un client vous contacte</li>
+                    </ul>
+                    
+                    <h3>Avantages économiques</h3>
+                    <ul>
+                        <li><strong>Gratuité</strong> : Pas de commission sur vos contrats</li>
+                        <li><strong>Gain de temps</strong> : Moins de prospection, plus de travail</li>
+                        <li><strong>Clientèle qualifiée</strong> : Des clients qui savent ce qu'ils veulent</li>
+                        <li><strong>Opportunités</strong> : Appels d'offres et projets spéciaux</li>
+                    </ul>
+                    
+                    <div class="bg-orange-50 border-l-4 border-orange-500 p-4 my-6">
+                        <p class="font-bold text-orange-700">Prêt à donner un nouvel élan à votre activité ?</p>
+                        <p>Créez votre compte artisan en moins de 5 minutes et commencez à recevoir des demandes dès aujourd'hui.</p>
+                        <a href="inscription.html" class="inline-block mt-3 bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg font-medium transition duration-300">
+                            <i class="fas fa-user-tie mr-2"></i> S'inscrire maintenant
+                        </a>
+                    </div>
+                `
+            },
+            conditions: {
+                title: "Conditions d'Utilisation",
+                subtitle: "Les règles qui régissent l'utilisation de notre plateforme",
+                content: `
+                    <h2>Conditions Générales d'Utilisation</h2>
+                    <p>Dernière mise à jour : 1er septembre 2026</p>
+                    
+                    <p>En utilisant la plateforme ArtisanIvoire, vous acceptez les présentes conditions d'utilisation. Veuillez les lire attentivement.</p>
+                    
+                    <h3>1. Définitions</h3>
+                    <p>Dans le cadre des présentes :</p>
+                    <ul>
+                        <li><strong>Plateforme</strong> : Désigne l'application web ArtisanIvoire et ses services associés</li>
+                        <li><strong>Artisan</strong> : Professionnel inscrit pour proposer ses services</li>
+                        <li><strong>Client</strong> : Utilisateur recherchant des services artisanaux</li>
+                    </ul>
+                    
+                    <h3>2. Objet</h3>
+                    <p>ArtisanIvoire est une plateforme de mise en relation entre artisans et clients. Nous ne sommes pas partie aux contrats conclus entre utilisateurs.</p>
+                    
+                    <h3>3. Inscription</h3>
+                    <ul>
+                        <li>L'inscription est gratuite pour les artisans </li>
+                        <li>Les artisans doivent fournir des informations exactes et à jour</li>
+                        <li>Nous nous réservons le droit de refuser ou supprimer un compte non conforme</li>
+                    </ul>
+                    
+                    <h3>4. Responsabilités des Artisans</h3>
+                    <ul>
+                        <li>Fournir des services conformes aux descriptions publiées</li>
+                        <li>Respecter les engagements pris envers les clients</li>
+                        <li>Maintenir à jour les informations de profil</li>
+                        <li>Ne pas contourner la plateforme pour éviter les commissions (le cas échéant)</li>
+                    </ul>
+                    
+                    <h3>5. Responsabilités des Clients</h3>
+                    <ul>
+                        <li>Fournir des demandes claires et réalistes</li>
+                        <li>Respecter les artisans et leurs conditions</li>
+                        <li>Laisser des avis constructifs et objectifs</li>
+                    </ul>
+                    
+                    <h3>6. Propriété intellectuelle</h3>
+                    <p>Les contenus publiés par les artisans restent leur propriété. </p>
+                    
+                    <h3>7. Modifications</h3>
+                    <p>Nous pouvons modifier ces conditions.</p>
+                
+                    <div class="bg-gray-100 p-4 rounded-lg mt-6">
+                        <p class="font-medium">Pour toute question concernant ces conditions, veuillez nous contacter à <a href="mailto:contact@artisanivoire.com" class="text-orange-600">contact@artisanivoire.com</a>.</p>
+                    </div>
+                `
+            },
+            confidentialite: {
+                title: "Politique de Confidentialité",
+                subtitle: "Comment nous protégeons et utilisons vos données",
+                content: `
+                    <h2>Politique de Protection des Données Personnelles</h2>
+                    <p>Dernière mise à jour : 1er septembre 2026</p>
+                    
+                    <p>Chez ArtisanIvoire, nous prenons très au sérieux la protection de vos données personnelles. Cette politique explique comment nous collectons, utilisons et protégeons vos informations.</p>
+                    
+                    <h3>1. Données collectées</h3>
+                    <p>Nous pouvons collecter :</p>
+                    <ul>
+                        <li><strong>Pour les artisans</strong> : Identité, coordonnées, photos de réalisations, avis clients, etc.</li>
+                        <li><strong>Pour les clients</strong> : Nom, email, téléphone (lors d'une prise de contact)</li>
+                        <li><strong>Pour tous</strong> : Données de navigation, adresse IP, cookies</li>
+                    </ul>
+                    
+                    <h3>2. Finalités du traitement</h3>
+                    <p>Vos données sont utilisées pour :</p>
+                    <ul>
+                        <li>Fournir et améliorer nos services</li>
+                        <li>Faciliter les mises en relation</li>
+                        <li>Personnaliser votre expérience</li>
+                        <li>Envoyer des informations utiles (avec votre consentement)</li>
+                        <li>Assurer la sécurité de la plateforme</li>
+                    </ul>
+                    
+                    <h3>3. Partage des données</h3>
+                    <p>Vos données peuvent être partagées avec :</p>
+                    <ul>
+                        <li>Les autres utilisateurs dans le cadre des fonctionnalités de mise en relation</li>
+                        <li>Nos prestataires techniques (hébergeur, service d'email, etc.)</li>
+                        <li>Les autorités si requis par la loi</li>
+                    </ul>
+                    <p>Nous ne vendons pas vos données à des tiers à des fins commerciales.</p>
+                    
+                    <h3>4. Sécurité</h3>
+                    <p>Nous mettons en œuvre des mesures techniques et organisationnelles pour protéger vos données contre tout accès non autorisé.</p>
+                    
+                    <h3>5. Vos droits</h3>
+                    <p>Conformément à la loi, vous pouvez :</p>
+                    <ul>
+                        <li>Accéder à vos données</li>
+                        <li>Les rectifier ou les supprimer</li>
+                        <li>Vous opposer à leur traitement</li>
+                        <li>Limiter leur utilisation</li>
+                        <li>Demander leur portabilité</li>
+                    </ul>
+                    <p>Pour exercer ces droits, contactez-nous à <a href="mailto:donnees@artisanivoire.com" class="text-orange-600">donnees@artisanivoire.com</a>.</p>
+                    
+                    <h3>6. Cookies</h3>
+                    <p>Nous utilisons des cookies pour :</p>
+                    <ul>
+                        <li>Fonctionnement technique du site</li>
+                        <li>Analyse d'audience</li>
+                        <li>Personnalisation du contenu</li>
+                    </ul>
+                    <p>Vous pouvez les désactiver dans les paramètres de votre navigateur.</p>
+                    
+                    <h3>7. Modifications</h3>
+                    <p>Cette politique peut être mise à jour. Nous vous informerons des changements importants.</p>
+                    
+                    <div class="bg-gray-100 p-4 rounded-lg mt-6">
+                        <p class="font-medium">Pour toute question sur la protection de vos données, contactez notre DPO à <a href="mailto:dpo@artisanivoire.com" class="text-orange-600">dpo@artisanivoire.com</a>.</p>
+                    </div>
+                `
+            }
+        };
+
+        // Gestion de l'affichage dynamique en fonction du paramètre URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page') || 'mission';
+            
+            // Mettre à jour le contenu en fonction de la page demandée
+            if (pageContents[page]) {
+                document.getElementById('page-title').textContent = pageContents[page].title;
+                document.getElementById('page-subtitle').textContent = pageContents[page].subtitle;
+                document.getElementById('content-container').innerHTML = pageContents[page].content;
+            } else {
+                // Rediriger vers la page mission par défaut si la page demandée n'existe pas
+                window.location.href = 'legal.html?page=mission';
+            }
+
+            // Mettre en surbrillance le lien actif dans le footer
+            const footerLinks = document.querySelectorAll('footer a');
+            footerLinks.forEach(link => {
+                if (link.href.includes(`page=${page}`)) {
+                    link.classList.remove('text-gray-400');
+                    link.classList.add('text-white', 'font-medium');
+                }
+            });
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                
+                if (answer.classList.contains('hidden')) {
+                    answer.classList.remove('hidden');
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
+                } else {
+                    answer.classList.add('hidden');
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
+                }
+                
+                // Close other FAQs
+                document.querySelectorAll('.faq-content').forEach(content => {
+                    if (content !== answer && !content.classList.contains('hidden')) {
+                        content.classList.add('hidden');
+                        const otherIcon = content.previousElementSibling.querySelector('i');
+                        otherIcon.classList.remove('fa-minus');
+                        otherIcon.classList.add('fa-plus');
+                    }
+                });
+            });
+        });
+        
+        // Back to top button
+        window.addEventListener('scroll', function() {
+            const backToTopButton = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('open');
+            
+            // Change icon
+            const icon = this.querySelector('i');
+            if (mobileMenu.classList.contains('open')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                mobileMenuButton.querySelector('i').classList.remove('fa-times');
+                mobileMenuButton.querySelector('i').classList.add('fa-bars');
+            });
+        });
+    </script>
+</body>
+</html>

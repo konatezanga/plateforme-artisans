@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Artisan - ArtisanIvoire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #f97316, #f59e0b);
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white font-bold">
+                            <i class="fas fa-hammer"></i>
+                        </div>
+                        <span class="ml-2 text-xl font-bold text-orange-600">Artisan<span class="text-green-600 text-xl font-bold">Ivoire</span></span>
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <a href="inscription.html" class="text-orange-600 hover:text-orange-700 font-medium">
+                        Pas encore inscrit ? <span class="font-bold">Créer un compte</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <!-- Left Column - Illustration -->
+            <div class="hidden md:block animate-fadeIn">
+                <div class="gradient-bg rounded-2xl p-8 text-white">
+                    <h2 class="text-3xl font-bold mb-4">Bienvenue sur Artisan<span class="text-green-600">Ivoire</span></h2>
+                    <p class="text-xl mb-6">Connectez-vous pour gérer votre profil d'artisan et accéder à toutes les fonctionnalités de la plateforme.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-white text-orange-600 rounded-full p-2 mr-4">
+                                <i class="fas fa-briefcase text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Gérez vos annonces</h3>
+                                <p class="opacity-90">Créez et suivez vos annonces facilement</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-white text-orange-600 rounded-full p-2 mr-4">
+                                <i class="fas fa-chart-line text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Suivez vos performances</h3>
+                                <p class="opacity-90">Analysez vos statistiques et améliorer votre visibilité</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-white text-orange-600 rounded-full p-2 mr-4">
+                                <i class="fas fa-comments text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Communiquez avec vos clients</h3>
+                                <p class="opacity-90">Répondez aux demandes et développez votre réseau</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Form -->
+            <div class="animate-fadeIn" style="animation-delay: 0.2s;">
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="text-center mb-8">
+                        <h1 class="text-3xl font-bold text-gray-800 mb-2">Connexion Artisan</h1>
+                        <p class="text-gray-600">Accédez à votre espace pour gérer votre profil et vos annonces</p>
+                    </div>
+
+                    <form class="space-y-6">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-envelope text-gray-400"></i>
+                                </div>
+                                <input type="email" id="email" name="email" required 
+                                    class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                    placeholder="votre@gmail.com">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-400"></i>
+                                </div>
+                                <input type="password" id="password" name="password" required 
+                                    class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                    placeholder="Votre mot de passe">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="secteur" class="block text-sm font-medium text-gray-700 mb-1">Secteur d'activité</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-briefcase text-gray-400"></i>
+                                </div>
+                                <select id="secteur" name="secteur" required
+                                    class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none">
+                                    <option value="">-- Choisissez votre secteur --</option>
+                                    <option>Menuisier</option>
+                                    <option>Plombier</option>
+                                    <option>Électricien</option>
+                                    <option>Couturier</option>
+                                    <option>Peintre</option>
+                                    <option>Autre</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                    <i class="fas fa-chevron-down text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input id="remember-me" name="remember-me" type="checkbox" 
+                                    class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded">
+                                <label for="remember-me" class="ml-2 block text-sm text-gray-700">
+                                    Se souvenir de moi
+                                </label>
+                            </div>
+                            <div class="text-sm">
+                                <a href="#" class="font-medium text-orange-600 hover:text-orange-500">
+                                    Mot de passe oublié ?
+                                </a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit" 
+                                class="w-full gradient-bg text-white py-3 px-4 rounded-lg font-bold text-lg hover:opacity-90 transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-sign-in-alt mr-2"></i> Se connecter
+                            </button>
+                        </div>
+
+                        <div class="text-center text-sm text-gray-600">
+                            Pas encore de compte ? 
+                            <a href="inscription.html" class="font-medium text-orange-600 hover:text-orange-500">
+                                Inscrivez-vous ici
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <div class="w-8 h-8 rounded-full gradient-bg flex items-center justify-center text-white font-bold">
+                    <i class="fas fa-hammer"></i>
+                </div>
+                <span class="ml-2 text-lg font-bold text-orange-600">Artisan<span class="text-green-600 text-xl font-bold">Ivoire</span></span>
+            </div>
+            <p class="text-gray-400 text-sm">
+                &copy; 2025 ArtisanIvoire. Tous droits réservés.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Animation for elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.animate-fadeIn');
+            elements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>

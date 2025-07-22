@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Artisan - ArtisanIvoire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #f97316, #f59e0b);
+        }
+        .artisan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .active-tab {
+            border-bottom: 3px solid #f97316;
+            color: #f97316;
+            font-weight: 600;
+        }
+        .portfolio-item {
+            transition: all 0.3s ease;
+        }
+        .portfolio-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .star-rating {
+            direction: rtl;
+            unicode-bidi: bidi-override;
+        }
+        .star-rating input {
+            display: none;
+        }
+        .star-rating label {
+            color: #ddd;
+            font-size: 1.5rem;
+            padding: 0 3px;
+            cursor: pointer;
+        }
+        .star-rating input:checked ~ label {
+            color: #f59e0b;
+        }
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #f59e0b;
+        }
+        .mobile-menu {
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white font-bold">
+                            <i class="fas fa-hammer"></i>
+                        </div>
+                        <span class="ml-2 text-xl font-bold text-orange-600">Artisan<span class="text-green-600 text-xl font-bold">Ivoire</span></span>
+                    </div>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="index.html" class="text-gray-700 hover:text-orange-600 px-3 py-2 font-medium">Accueil</a>
+                        <a href="index.html#categories" class="text-gray-700 hover:text-orange-600 px-3 py-2 font-medium">Catégories</a>
+                        <a href="index.html#about" class="text-gray-700 hover:text-orange-600 px-3 py-2 font-medium">À propos</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <section class="hidden md:block bg-orange-50 border border-orange-200 rounded-lg px-4 py-2 flex items-center space-x-3">
+                        <i class="fas fa-user-tie text-orange-600 text-lg"></i>
+                        <span class="text-gray-800 text-sm font-medium">
+                            Vous êtes artisan ? 
+                            <a href="inscription.html" class="text-orange-600 font-semibold hover:underline ml-1">Inscrivez-vous ici</a>
+                            pour gérer votre activité.
+                        </span>
+                    </section>
+                    <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-orange-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu md:hidden bg-white">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50">Accueil</a>
+                    <a href="index.html#categories" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50">Catégories</a>
+                    <a href="index.html#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50">À propos</a>
+                    <div class="px-3 py-2">
+                        <div class="bg-orange-50 border border-orange-200 rounded-lg px-4 py-2 flex items-center space-x-3">
+                            <i class="fas fa-user-tie text-orange-600 text-lg"></i>
+                            <span class="text-gray-800 text-sm font-medium">
+                                Vous êtes artisan ? 
+                                <a href="inscription.html" class="text-orange-600 font-semibold hover:underline ml-1">Inscrivez-vous ici</a>
+                                pour gérer votre activité.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Artisan Profile Header -->
+    <section class="bg-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                <!-- Profile Picture -->
+                <div class="text-center">
+                    <div class="w-32 h-32 rounded-full gradient-bg flex items-center justify-center text-white text-4xl font-bold mx-auto mb-4">
+                        MK
+                    </div>
+                    <h1 class="text-2xl font-bold text-gray-800">Marie Koné</h1>
+                    <p class="text-orange-600 font-medium">Peintre professionnelle</p>
+                    
+                    <div class="flex items-center justify-center mt-2">
+                        <span class="text-gray-500 text-sm ml-2">(24 avis)</span>
+                    </div>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="flex-grow">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-3">Coordonnées</h3>
+                            <div class="space-y-2">
+                                <p class="flex items-center text-gray-600">
+                                    <i class="fas fa-map-marker-alt text-orange-600 mr-2 w-5"></i>
+                                    Cocody, Abidjan, Côte d'Ivoire
+                                </p>
+                                <p class="flex items-center text-gray-600">
+                                    <i class="fas fa-phone text-orange-600 mr-2 w-5"></i>
+                                    +225 07 12 34 56 78
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-3">À propos</h3>
+                            <p class="text-gray-600 mb-4">
+                                Artisan peintre professionnelle avec 10 ans d'expérience dans la décoration intérieure et extérieure. 
+                                Spécialisée dans les finitions haut de gamme et les peintures murales artistiques.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Navigation -->
+    <div class="bg-white border-t border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4">
+            <nav class="flex overflow-x-auto">
+                <a href="#portfolio" class="px-4 py-3 font-medium text-gray-700 hover:text-orange-600 whitespace-nowrap">
+                    <i class="fas fa-images mr-2"></i>Portfolio
+                </a>
+                <a href="#annonces" class="px-4 py-3 font-medium text-gray-700 hover:text-orange-600 whitespace-nowrap">
+                    <i class="fas fa-bullhorn mr-2"></i>Annonces
+                </a>
+                <a href="#avis" class="px-4 py-3 font-medium text-gray-700 hover:text-orange-600 whitespace-nowrap">
+                    <i class="fas fa-comment mr-2"></i>Avis (24)
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8">
+                <i class="fas fa-images text-orange-600 mr-2"></i>Portfolio
+            </h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="portfolio-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
+                         alt="Peinture murale" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800">Peinture murale moderne</h3>
+                        <p class="text-sm text-gray-600">Abidjan, 2023</p>
+                        <p class="text-gray-600 mt-2">Réalisation d'une fresque murale pour un salon moderne.</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
+                         alt="Décoration intérieure" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800">Décoration chambre</h3>
+                        <p class="text-sm text-gray-600">Yamoussoukro, 2024</p>
+                        <p class="text-gray-600 mt-2">Peinture et décoration d'une chambre d'enfant avec motifs personnalisés.</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
+                         alt="Rénovation façade" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800">Rénovation façade</h3>
+                        <p class="text-sm text-gray-600">Bouaké, 2023</p>
+                        <p class="text-gray-600 mt-2">Rénovation complète d'une façade avec peinture résistante.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Annonces Section -->
+    <section id="annonces" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8">
+                <i class="fas fa-bullhorn text-orange-600 mr-2"></i>Annonces
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Annonce 1 -->
+                <div class="bg-gray-50 rounded-xl shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
+                         alt="Peinture intérieure" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-gray-800 text-lg mb-2">Peinture intérieure professionnelle</h3>
+                        <p class="text-gray-600 mb-4">Service complet de peinture intérieure avec préparation des murs et finitions impeccables.</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-sm text-gray-500">Prix jugé</span>
+                                <p class="text-orange-600 font-bold">Par pièce</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Annonce 2 -->
+                <div class="bg-gray-50 rounded-xl shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
+                         alt="Peinture murale artistique" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-gray-800 text-lg mb-2">Peinture murale artistique</h3>
+                        <p class="text-gray-600 mb-4">Création de fresques murales personnalisées pour votre maison ou entreprise.</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-sm text-gray-500">Prix jugé</span>
+                                <p class="text-orange-600 font-bold">Sur devis</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Avis Section -->
+    <section id="avis" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">
+                    <i class="fas fa-comment text-orange-600 mr-2"></i>Avis clients (24)
+                </h2>
+                <button class="gradient-bg text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition duration-300" onclick="document.getElementById('review-modal').classList.remove('hidden')">
+                    <i class="fas fa-pen mr-2"></i>Laisser un avis
+                </button>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- Avis 1 -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold mr-3">
+                                JD
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Jean Dupont</h4>
+                                <span class="text-gray-500 text-sm">12/03/2024</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        Excellent travail ! Marie a réalisé une magnifique peinture murale dans le salon de notre maison. 
+                        Elle est très professionnelle, ponctuelle et a su comprendre exactement ce que nous voulions. 
+                        Je recommande vivement ses services.
+                    </p>
+                </div>
+                
+                <!-- Avis 2 -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold mr-3">
+                                AM
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Amina M.</h4>
+                                <span class="text-gray-500 text-sm">28/02/2024</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        Très satisfaite du travail de peinture intérieure. Les finitions sont impeccables et les couleurs 
+                        exactement comme je les voulais. Petit bémol sur les délais qui ont été un peu dépassés, 
+                        mais le résultat final vaut l'attente.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="py-12 bg-white border-t border-gray-200">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-orange-50 rounded-xl p-6 shadow-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+                    <i class="fas fa-envelope text-orange-600 mr-2"></i>Contacter Marie Koné
+                </h2>
+                
+                <form>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2" for="contact-name">Votre nom</label>
+                        <input type="text" id="contact-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2" for="contact-phone">Votre téléphone</label>
+                        <input type="tel" id="contact-phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2" for="contact-subject">Sujet</label>
+                        <select id="contact-subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                            <option>Demande de devis</option>
+                            <option>Question sur un service</option>
+                            <option>Autre</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2" for="contact-message">Message</label>
+                        <textarea id="contact-message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full gradient-bg text-white px-6 py-3 rounded-lg font-medium hover:opacity-90 transition duration-300">
+                        <i class="fas fa-paper-plane mr-2"></i>Envoyer le message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Review Modal -->
+    <div id="review-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">Laisser un avis</h3>
+                <button class="text-gray-500 hover:text-gray-700" onclick="document.getElementById('review-modal').classList.add('hidden')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2" for="review-nom">Nom</label>
+                    <input type="text" id="review-nom" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2" for="review-text">Votre avis</label>
+                    <textarea id="review-text" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"></textarea>
+                </div>
+                
+                <div class="flex justify-end space-x-4">
+                    <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium" onclick="document.getElementById('review-modal').classList.add('hidden')">
+                        Annuler
+                    </button>
+                    <button type="submit" class="gradient-bg text-white px-4 py-2 rounded-lg font-medium hover:opacity-90">
+                        Publier
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mx-auto w-max">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">À propos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="legal.html?page=mission" class="text-gray-400 hover:text-white transition">Notre mission</a></li>
+                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition">Contact</a></li> 
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Pour les Artisans</h3>
+                    <ul class="space-y-2">
+                        <li><a href="inscription.html" class="text-gray-400 hover:text-white transition">Créer un profil</a></li>
+                        <li><a href="legal.html?page=avantages" class="text-gray-400 hover:text-white transition">Avantages</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Pour les Clients</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#recherche" class="text-gray-400 hover:text-white transition">Trouver un artisan</a></li>
+                        <li><a href="index.html#marche" class="text-gray-400 hover:text-white transition">Comment ça marche</a></li>
+                        <li><a href="index.html#about" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Légal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="legal.html?page=conditions" class="text-gray-400 hover:text-white transition">Conditions d'utilisation</a></li>
+                        <li><a href="legal.html?page=confidentialite" class="text-gray-400 hover:text-white transition">Politique de confidentialité</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="w-8 h-8 rounded-full gradient-bg flex items-center justify-center text-white font-bold">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <span class="ml-2 text-lg font-bold text-orange-600">Artisan<span class="text-green-600 text-xl font-bold">Ivoire</span></span>
+                </div>
+                <div class="text-gray-400 text-sm">
+                    &copy; 2025 ArtisanIvoire. Tous droits réservés.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('open');
+            
+            // Change icon
+            const icon = this.querySelector('i');
+            if (mobileMenu.classList.contains('open')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                mobileMenuButton.querySelector('i').classList.remove('fa-times');
+                mobileMenuButton.querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        // Star rating for review modal
+        document.querySelectorAll('.star-rating input').forEach(input => {
+            input.addEventListener('change', function() {
+                const rating = this.value;
+                console.log('Note donnée:', rating);
+            });
+        });
+        
+    </script>
+</body>
+</html>

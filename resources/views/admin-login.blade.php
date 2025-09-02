@@ -30,7 +30,8 @@
         </div>
 
         <div class="bg-white rounded-xl shadow-lg p-8 animate-fadeIn" style="animation-delay: 0.2s;">
-            <form class="space-y-6">
+            <form class="space-y-6" method="POST" action="{{ route('admin.login.submit') }}">
+                @csrf
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email administratif</label>
                     <div class="relative">
@@ -78,11 +79,22 @@
                 </div>
 
                 <div class="text-center text-sm text-gray-600">
-                    <a href="index.html" class="font-medium text-orange-600 hover:text-orange-500">
+                    <a href="{{ url('/') }}" class="font-medium text-orange-600 hover:text-orange-500">
                         <i class="fas fa-arrow-left mr-1"></i> Retour au site principal
                     </a>
                 </div>
             </form>
+            
+
+            @if($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
 
         <div class="mt-8 text-center text-gray-500 text-sm animate-fadeIn" style="animation-delay: 0.4s;">

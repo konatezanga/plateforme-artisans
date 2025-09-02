@@ -96,12 +96,13 @@
             </nav>
         </div>
         
-        <div class="p-4 border-t border-gray-700">
-            <a href="admin-login.html" class="flex items-center p-2 rounded-lg hover:bg-gray-800 text-red-400 hover:text-red-300">
-                <i class="fas fa-sign-out-alt"></i>
-                <span class="ml-3">Déconnexion</span>
-            </a>
-        </div>
+        <form class="p-4 border-t border-gray-700" method="POST" action="{{ route('admin.logout') }}">
+            @csrf
+            <button type="submit" class="w-full flex items-center p-2 rounded-lg hover:bg-gray-800 text-red-400 hover:text-red-300">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="ml-3">Déconnexion</span>
+            </button>
+        </form>
     </div>
 
     <!-- Main Content (visible on all screens) -->
@@ -295,12 +296,13 @@
             </nav>
         </div>
         
-        <div class="p-4 border-t border-gray-700">
-            <a href="admin-login.html" class="flex items-center p-2 rounded-lg hover:bg-gray-800 text-red-400 hover:text-red-300">
-                <i class="fas fa-sign-out-alt"></i>
-                <span class="ml-3">Déconnexion</span>
-            </a>
-        </div>
+        <form class="p-4 border-t border-gray-700" method="POST" action="{{ route('admin.logout') }}">
+            @csrf
+            <button type="submit" class="w-full flex items-center p-2 rounded-lg hover:bg-gray-800 text-red-400 hover:text-red-300">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="ml-3">Déconnexion</span>
+            </button>
+        </form>
     </div>
 
     <script>

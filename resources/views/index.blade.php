@@ -548,31 +548,34 @@
                 
                 <div class="bg-gray-50 p-6 rounded-xl">
                     <h3 class="text-xl font-bold text-gray-800 mb-6">Envoyez-nous un message</h3>
-                    <form>
+                    <!-- Formulaire de contact avec Formspree -->
+                    <form id="contact-form" action="https://formspree.io/f/xeozbokp" method="POST">
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 text-sm font-medium mb-2">Nom complet</label>
-                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="Votre nom">
+                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="Votre nom" required>
                         </div>
                         <div class="mb-4">
                             <label for="email" class="block text-gray-700 text-sm font-medium mb-2">Adresse email</label>
-                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="votre@email.com">
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="votre@email.com" required>
                         </div>
                         <div class="mb-4">
                             <label for="subject" class="block text-gray-700 text-sm font-medium mb-2">Sujet</label>
-                            <select id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                                <option>Question générale</option>
-                                <option>Problème avec mon compte</option>
-                                <option>Partenariat</option>
-                                <option>Autre</option>
+                            <select id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent" required>
+                                <option value="">Sélectionnez un sujet</option>
+                                <option value="Question générale">Question générale</option>
+                                <option value="Problème avec mon compte">Problème avec mon compte</option>
+                                <option value="Partenariat">Partenariat</option>
+                                <option value="Autre">Autre</option>
                             </select>
                         </div>
                         <div class="mb-6">
                             <label for="message" class="block text-gray-700 text-sm font-medium mb-2">Message</label>
-                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none rounded-md" placeholder="Votre message..."></textarea>
+                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none rounded-md" placeholder="Votre message..." required></textarea>
                         </div>
                         <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
                             Envoyer le message
                         </button>
+                        <p id="contact-form-status" class="mt-3 text-center"></p>
                     </form>
                 </div>
             </div>
@@ -587,12 +590,14 @@
                 <p class="text-xl mb-8 max-w-2xl">Abonnez-vous à notre newsletter pour recevoir les actualités et conseils pour artisans.</p>
                 
                 <div class="w-full max-w-lg">
-                    <div class="flex flex-col sm:flex-row gap-2">
-                        <input type="email" placeholder="Votre adresse email" class="flex-grow px-4 py-3 rounded-lg focus:outline-none text-gray-900">
-                        <button class="bg-orange-800 hover:bg-orange-900 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
+                    <!-- Formulaire newsletter avec Formspree -->
+                    <form id="newsletter-form" action="https://formspree.io/f/xrblwblz" method="POST" class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" name="email" placeholder="Votre adresse email" class="flex-grow px-4 py-3 rounded-lg focus:outline-none text-gray-900" required>
+                        <button type="submit" class="bg-orange-800 hover:bg-orange-900 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
                             S'abonner
                         </button>
-                    </div>
+                    </form>
+                    <p id="newsletter-form-status" class="mt-3 text-sm opacity-80"></p>
                     <p class="mt-3 text-sm opacity-80">Nous ne partagerons jamais votre email avec des tiers.</p>
                 </div>
             </div>
@@ -727,6 +732,78 @@
                 mobileMenuButton.querySelector('i').classList.add('fa-bars');
             });
         });
+
+        // Gestion du formulaire de contact
+        const contactForm = document.getElementById("contact-form");
+        
+        async function handleContactSubmit(event) {
+            event.preventDefault();
+            const status = document.getElementById("contact-form-status");
+            const data = new FormData(event.target);
+            fetch(event.target.action, {
+                method: contactForm.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    status.innerHTML = "Merci pour votre message! Nous vous répondrons bientôt.";
+                    status.classList.add("text-green-500");
+                    contactForm.reset();
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                            status.classList.add("text-red-500");
+                        } else {
+                            status.innerHTML = "Oups! Il y a eu un problème avec l'envoi du formulaire";
+                            status.classList.add("text-red-500");
+                        }
+                    });
+                }
+            }).catch(error => {
+                status.innerHTML = "Oups! Il y a eu un problème avec l'envoi du formulaire";
+                status.classList.add("text-red-500");
+            });
+        }
+        contactForm.addEventListener("submit", handleContactSubmit);
+
+        // Gestion du formulaire de newsletter
+        const newsletterForm = document.getElementById("newsletter-form");
+        
+        async function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            const status = document.getElementById("newsletter-form-status");
+            const data = new FormData(event.target);
+            fetch(event.target.action, {
+                method: newsletterForm.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    status.innerHTML = "Merci pour votre inscription à notre newsletter!";
+                    status.classList.add("text-green-300");
+                    newsletterForm.reset();
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                            status.classList.add("text-red-300");
+                        } else {
+                            status.innerHTML = "Oups! Il y a eu un problème avec votre inscription";
+                            status.classList.add("text-red-300");
+                        }
+                    });
+                }
+            }).catch(error => {
+                status.innerHTML = "Oups! Il y a eu un problème avec votre inscription";
+                status.classList.add("text-red-300");
+            });
+        }
+        newsletterForm.addEventListener("submit", handleNewsletterSubmit);
     </script>
 </body>
 </html>

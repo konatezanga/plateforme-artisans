@@ -107,18 +107,22 @@
             <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
                 <div class="flex items-center space-x-4">
                     <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-orange-600 font-bold">
-                        <i class="fas fa-hammer"></i>
+                        <i class="fas fa-hammer"></i> 
                     </div>
-                    <h1 class="text-xl font-bold">Espace Artisan</h1>
+                    <h1 class="text-base font-bold md:text-xl">Espace Artisan</h1>
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="relative">
                         <i class="fas fa-bell text-xl cursor-pointer hover:text-orange-200"></i>
                         <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
                     </div>
-                    <a href="connexion.html" class="bg-white text-orange-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition duration-300">
-                        <i class="fas fa-sign-out-alt mr-1"></i>Déconnexion
-                    </a>
+                    <form class="p-4" method="POST" action="{{ route('artisan.logout') }}">
+                        @csrf
+                        <button type="submit" class="bg-white text-orange-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition duration-300">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="ml-1">Déconnexion</span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </header>
@@ -631,7 +635,8 @@
                         </div>                    
                     </section>
                 </div>              
-
+            </main>
+        </div>
         <!-- Add Portfolio Modal -->
         <div id="portfolio-modal" class="fullscreen-modal hidden">
             <div class="modal-content">

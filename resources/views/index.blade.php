@@ -7,6 +7,27 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+        section {
+            width: 100%;
+            overflow: hidden;
+        }
+        .max-w-7xl {
+            width: 100%;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        #recherche {
+            margin-left: auto;
+            margin-right: auto;
+            width: calc(100% - 2rem);
+        }
         .gradient-bg {
             background: linear-gradient(135deg, #f97316, #f59e0b);
         }
@@ -60,7 +81,7 @@
                         <i class="fas fa-user-tie text-orange-600 text-lg"></i>
                         <span class="text-gray-800 text-sm font-medium">
                             Vous êtes artisan ? 
-                            <a href="inscription.blade.php" class="text-orange-600 font-semibold hover:underline ml-1">Inscrivez-vous ici</a>
+                            <a href="{{ url('inscription') }}" class="text-orange-600 font-semibold hover:underline ml-1">Inscrivez-vous ici</a>
                             pour gérer votre activité.
                         </span>
                     </section>
@@ -81,7 +102,7 @@
                             <i class="fas fa-user-tie text-orange-600 text-lg"></i>
                             <span class="text-gray-800 text-sm font-medium">
                                 Vous êtes artisan ? 
-                                <a href="inscription.html" class="text-orange-600 font-semibold hover:underline ml-1">Inscrivez-vous ici</a>
+                                <a href="{{ url('inscription') }}" class="text-orange-600 font-semibold hover:underline ml-1">Inscrivez-vous ici</a>
                                 pour gérer votre activité.
                             </span>
                         </div>
@@ -99,7 +120,7 @@
                     <h1 class="text-4xl md:text-5xl font-bold mb-4">Promouvez votre artisanat en Côte d'Ivoire</h1>
                     <p class="text-xl mb-8">La plateforme qui connecte les artisans talentueux à leur clientèle locale. Augmentez votre visibilité et trouvez plus de clients.</p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="inscription.html">
+                        <a href="{{ url('inscription') }}">
                             <button class="bg-white text-orange-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-bold text-lg transition duration-300">
                                 <i class="fas fa-user-tie mr-2"></i>Créer un profil Artisan
                             </button>
@@ -168,6 +189,7 @@
                 <span class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium">Korhogo</span>
                 <span class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium">etc</span>
             </div>
+
              <!-- Les artisans recherchés doivent s'afficher ici -->
             <div id="artisans-results" class="mt-6 space-y-4">
                 <!-- Artisan 1 -->
@@ -426,7 +448,7 @@
             <h2 class="text-3xl md:text-4xl font-bold mb-6">Prêt à développer votre activité artisanale ?</h2>
             <p class="text-xl mb-8 max-w-3xl mx-auto">Rejoignez dès maintenant la meilleure plateforme de mise en relation dédiée aux artisans ivoiriens.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="inscription.html">
+                <a href="{{ url('inscription') }}">
                     <button class="bg-white text-orange-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-bold text-lg transition duration-300">
                         <i class="fas fa-user-plus mr-3"></i>S'inscrire comme Artisan
                     </button>
@@ -448,10 +470,6 @@
                     <div>
                         <div class="text-4xl font-bold text-orange-600 mb-2">2</div>
                         <div class="text-gray-600">Artisans inscrits</div>
-                    </div>
-                    <div>
-                        <div class="text-4xl font-bold text-orange-600 mb-2">1</div>
-                        <div class="text-gray-600">Projets réalisés</div>
                     </div>
                     <div>
                         <div class="text-4xl font-bold text-orange-600 mb-2">+25</div>
@@ -618,7 +636,7 @@
                 <div>
                     <h3 class="text-lg font-bold mb-4">Pour les Artisans</h3>
                     <ul class="space-y-2">
-                        <li><a href="inscription.html" class="text-gray-400 hover:text-white transition">Créer un profil</a></li>
+                        <li><a href="{{ url('inscription') }}" class="text-gray-400 hover:text-white transition">Créer un profil</a></li>
                         <li><a href="legal.html?page=avantages" class="text-gray-400 hover:text-white transition">Avantages</a></li>
                     </ul>
                 </div>

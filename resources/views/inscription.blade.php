@@ -25,7 +25,7 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center space-x-4">
-                    <a href="index.html" class="flex items-center">
+                    <a href="{{ url('/') }}" class="flex items-center">
                         <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white font-bold">
                             <i class="fas fa-hammer"></i>
                         </div>
@@ -33,7 +33,7 @@
                     </a>
                 </div>
                 <div class="flex items-center">
-                    <a href="connexion.html" class="text-orange-600 hover:text-orange-700 font-medium">
+                    <a href="{{ route('artisan.connexion') }}" class="text-orange-600 hover:text-orange-700 font-medium">
                         Déjà inscrit ? <span class="font-bold">Se connecter</span>
                     </a>
                 </div>
@@ -89,7 +89,33 @@
                         <p class="text-gray-600">Inscrivez-vous pour rejoindre notre plateforme et proposer vos services</p>
                     </div>
 
-                    <form class="space-y-4" id="inscriptionForm">
+                    <!-- Messages de statut -->
+                    @if(session('success'))
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    <form class="space-y-4" method="POST" action="{{ route('artisan.register') }}" id="inscriptionForm">
+                        @csrf
+
+                        <!-- Affichage des erreurs de validation -->
+                        @if($errors->any())
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label for="nom" class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
@@ -99,7 +125,7 @@
                                     </div>
                                     <input type="text" id="nom" name="nom" required 
                                         class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                                        placeholder="Votre nom">
+                                        placeholder="Votre nom" value="{{ old('nom') }}">
                                 </div>
                             </div>
                             <div>
@@ -110,7 +136,7 @@
                                     </div>
                                     <input type="text" id="prenom" name="prenom" required 
                                         class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                                        placeholder="Votre prénom">
+                                        placeholder="Votre prénom" value="{{ old('prenom') }}">
                                 </div>
                             </div>
                         </div>
@@ -123,7 +149,7 @@
                                 </div>
                                 <input type="email" id="email" name="email" required 
                                     class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                                    placeholder="votre@gmail.com">
+                                    placeholder="votre@gmail.com" value="{{ old('email') }}">
                             </div>
                         </div>
 
@@ -135,7 +161,7 @@
                                 </div>
                                 <input type="tel" id="telephone" name="telephone" required 
                                     class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                                    placeholder="Votre numéro de téléphone">
+                                    placeholder="Votre numéro de téléphone" value="{{ old('telephone') }}">
                             </div>
                         </div>
 
@@ -153,6 +179,18 @@
                         </div>
 
                         <div>
+                            <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">Confirmer le mot de passe</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-400"></i>
+                                </div>
+                                <input type="password" id="password_confirmation" name="password_confirmation" required 
+                                    class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                    placeholder="Confirmez votre mot de passe">
+                            </div>
+                        </div>
+
+                        <div>
                             <label for="adresse" class="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -160,7 +198,7 @@
                                 </div>
                                 <input type="text" id="adresse" name="adresse" required 
                                     class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                                    placeholder="Votre adresse complète">
+                                    placeholder="Votre adresse complète" value="{{ old('adresse') }}">
                             </div>
                         </div>
 
@@ -173,12 +211,12 @@
                                 <select id="secteur" name="secteur" required
                                     class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none">
                                     <option value="">-- Choisissez un secteur --</option>
-                                    <option>Menuisier</option>
-                                    <option>Plombier</option>
-                                    <option>Électricien</option>
-                                    <option>Couturier</option>
-                                    <option>Peintre</option>
-                                    <option value="autre">Autre (précisez ci-dessous)</option>
+                                    <option value="Menuisier" {{ old('secteur') == 'Menuisier' ? 'selected' : '' }}>Menuisier</option>
+                                    <option value="Plombier" {{ old('secteur') == 'Plombier' ? 'selected' : '' }}>Plombier</option>
+                                    <option value="Électricien" {{ old('secteur') == 'Électricien' ? 'selected' : '' }}>Électricien</option>
+                                    <option value="Couturier" {{ old('secteur') == 'Couturier' ? 'selected' : '' }}>Couturier</option>
+                                    <option value="Peintre" {{ old('secteur') == 'Peintre' ? 'selected' : '' }}>Peintre</option>
+                                    <option value="autre" {{ old('secteur') == 'autre' ? 'selected' : '' }}>Autre (précisez ci-dessous)</option>
                                 </select>
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                                     <i class="fas fa-chevron-down text-gray-400"></i>
@@ -194,18 +232,18 @@
                                 </div>
                                 <input type="text" id="secteur_autre" name="secteur_autre"
                                     class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                                    placeholder="Ex: Sculpteur, Potier, Forgeron...">
+                                    placeholder="Ex: Sculpteur, Potier, Forgeron..." value="{{ old('secteur_autre') }}">
                             </div>
                         </div>
 
                         <div class="flex items-start">
                             <div class="flex items-center h-5">
                                 <input id="conditions" name="conditions" type="checkbox" required
-                                    class="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300 rounded">
+                                    class="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300 rounded" {{ old('conditions') ? 'checked' : '' }}>
                             </div>
                             <div class="ml-3 text-sm">
                                 <label for="conditions" class="font-medium text-gray-700">
-                                    J'accepte les <a href="legal.html?page=conditions" class="text-orange-600 hover:text-orange-500">conditions d'utilisation</a> et la <a href="legal.html?page=confidentialite" class="text-orange-600 hover:text-orange-500">politique de confidentialité</a>
+                                    J'accepte les <a href="#" class="text-orange-600 hover:text-orange-500">conditions d'utilisation</a> et la <a href="#" class="text-orange-600 hover:text-orange-500">politique de confidentialité</a>
                                 </label>
                             </div>
                         </div>
@@ -219,7 +257,7 @@
 
                         <div class="text-center text-sm text-gray-600">
                             Déjà inscrit ? 
-                            <a href="connexion.html" class="font-medium text-orange-600 hover:text-orange-500">
+                            <a href="{{ route('artisan.connexion') }}" class="font-medium text-orange-600 hover:text-orange-500">
                                 Connectez-vous ici
                             </a>
                         </div>
@@ -256,9 +294,14 @@
             const secteurSelect = document.getElementById('secteur');
             const autreSecteurContainer = document.getElementById('secteur_autre_container');
             const secteurAutreInput = document.getElementById('secteur_autre');
-            const inscriptionForm = document.getElementById('inscriptionForm');
 
-            // Afficher/masquer le champ "Autre secteur"
+            // Afficher/masquer le champ "Autre secteur" au chargement
+            if (secteurSelect.value === 'autre') {
+                autreSecteurContainer.classList.remove('hidden');
+                secteurAutreInput.required = true;
+            }
+
+            // Afficher/masquer le champ "Autre secteur" lors du changement
             secteurSelect.addEventListener('change', function() {
                 if (this.value === 'autre') {
                     autreSecteurContainer.classList.remove('hidden');
@@ -269,28 +312,7 @@
                 }
             });
 
-            // Validation du formulaire
-            inscriptionForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Vérification du secteur
-                let secteurValue;
-                if (secteurSelect.value === 'autre') {
-                    secteurValue = secteurAutreInput.value.trim();
-                    if (secteurValue === '') {
-                        alert('Veuillez préciser votre secteur d\'activité');
-                        return;
-                    }
-                } else {
-                    secteurValue = secteurSelect.value;
-                }
-
-                // Ici vous pouvez ajouter la logique de soumission du formulaire
-                console.log('Formulaire soumis avec le secteur:', secteurValue);
-                
-                // Redirection après inscription réussie
-                // window.location.href = 'tableau-de-bord.html';
-            });
+            // NE PAS utiliser preventDefault() pour permettre l'envoi du formulaire
         });
     </script>
 </body>

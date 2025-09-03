@@ -25,7 +25,7 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center space-x-4">
-                    <a href="index.html" class="flex items-center">
+                    <a href="{{ url('/') }}" class="flex items-center">
                         <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white font-bold">
                             <i class="fas fa-hammer"></i>
                         </div>
@@ -33,7 +33,7 @@
                     </a>
                 </div>
                 <div class="flex items-center">
-                    <a href="inscription.html" class="text-orange-600 hover:text-orange-700 font-medium">
+                    <a href="{{ url('inscription') }}" class="text-orange-600 hover:text-orange-700 font-medium">
                         Pas encore inscrit ? <span class="font-bold">Créer un compte</span>
                     </a>
                 </div>
@@ -89,7 +89,8 @@
                         <p class="text-gray-600">Accédez à votre espace pour gérer votre profil et vos annonces</p>
                     </div>
 
-                    <form class="space-y-6">
+                    <form class="space-y-6" method="POST" action="{{ route('artisan.login') }}">
+                        @csrf
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
                             <div class="relative">
@@ -160,10 +161,20 @@
 
                         <div class="text-center text-sm text-gray-600">
                             Pas encore de compte ? 
-                            <a href="inscription.html" class="font-medium text-orange-600 hover:text-orange-500">
+                            <a href="{{ ('inscription') }}" class="font-medium text-orange-600 hover:text-orange-500">
                                 Inscrivez-vous ici
                             </a>
                         </div>
+                        
+                        @if($errors->any())
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>
